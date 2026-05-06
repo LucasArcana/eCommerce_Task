@@ -113,6 +113,8 @@ public class NavigationActivity extends AppCompatActivity {
                     switchTab(3);
                 } else if (id == R.id.menu_order_history) {
                     startActivity(new Intent(this, PurchaseActivity.class));
+                } else if (id == R.id.menu_settings) {
+                    startActivity(new Intent(this, Settings.class));
                 } else if (id == R.id.menu_search) {
                     switchTab(1);
                 } else if (id == R.id.menu_cart) {

@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ECommerce_Task">
         <activity
+            android:name=".Settings"
+            android:exported="false" />
+        <activity
             android:name=".PurchaseActivity"
             android:exported="false" />
         <activity
