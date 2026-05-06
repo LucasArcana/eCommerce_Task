@@ -22,5 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "LogInandCheckout"
+rootProject.name = "eCommerce_Task"
 include(":app")

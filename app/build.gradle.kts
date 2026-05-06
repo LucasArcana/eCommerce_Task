@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.loginandcheckout"
+    namespace = "com.example.ecommerce_task"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -11,7 +11,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.loginandcheckout"
+        applicationId = "com.example.ecommerce_task"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -43,4 +43,10 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
 }
