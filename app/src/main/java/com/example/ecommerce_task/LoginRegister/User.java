@@ -1,4 +1,4 @@
-package com.example.ecommerce_task;
+package com.example.ecommerce_task.LoginRegister;
 
 import com.google.gson.annotations.SerializedName;
 

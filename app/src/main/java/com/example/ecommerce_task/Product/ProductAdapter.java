@@ -1,4 +1,4 @@
-package com.example.ecommerce_task;
+package com.example.ecommerce_task.Product;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.ecommerce_task.R;
 
 import java.util.List;
 

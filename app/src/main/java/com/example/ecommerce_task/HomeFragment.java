@@ -12,8 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.ecommerce_task.API.RetrofitClient;
+import com.example.ecommerce_task.API.TokenManager;
+import com.example.ecommerce_task.Product.Product;
+import com.example.ecommerce_task.Product.ProductAdapter;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -80,12 +86,12 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Button btn_explore = view.findViewById(R.id.btn_explore);
         RecyclerView recyclerView = view.findViewById(R.id.rv_products);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setNestedScrollingEnabled(false);
 
-        String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZTczYjQ4ZDcyNzU0N2ZlYWQ5YjdjYyIsImlhdCI6MTc3Njc2MTcwMywiZXhwIjoxNzc2ODQ4MTAzfQ.HBWIIIOuN842E_-9bky6YNnp2WrzAxfGmHB4FKuwcJs";
-
+        String token = new TokenManager(getContext()).getToken();
         RetrofitClient.getApi()
                 .getProducts("Bearer " + token)
                 .enqueue(new Callback<List<Product>>() {
@@ -113,6 +119,14 @@ public class HomeFragment extends Fragment {
                         Toast.makeText(getContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+        EditText edSearch = view.findViewById(R.id.et_search);
+        edSearch.setFocusable(false);
+        edSearch.setOnClickListener(v -> {
+            ((NavigationActivity) requireActivity()).switchToSearch();
+        });
 
+        btn_explore.setOnClickListener(view1 -> {
+            ((NavigationActivity) requireActivity()).switchToSearch();
+        });
     }
 }

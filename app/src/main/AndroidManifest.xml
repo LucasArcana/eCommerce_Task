@@ -14,6 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ECommerce_Task">
         <activity
+            android:name=".PurchaseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Registatrion"
+            android:exported="false" />
+        <activity
             android:name=".CheckoutActivity"
             android:exported="false" />
         <activity
@@ -23,7 +29,7 @@
             android:name=".NavigationActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

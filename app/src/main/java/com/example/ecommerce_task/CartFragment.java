@@ -1,12 +1,27 @@
 package com.example.ecommerce_task;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.ecommerce_task.Cart.CartAdapter;
+import com.example.ecommerce_task.Cart.CartItem;
+import com.example.ecommerce_task.Cart.Cartmanager;
+import com.google.android.material.button.MaterialButton;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,6 +67,67 @@ public class CartFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    private RecyclerView rvCart;
+    private TextView tvSubtotal, tvTotal;
+    private LinearLayout layoutEmpty;
+    private MaterialButton btnCheckout;
+    private CartAdapter adapter;
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        rvCart      = view.findViewById(R.id.rv_cart);
+        tvSubtotal  = view.findViewById(R.id.tv_subtotal);
+        tvTotal     = view.findViewById(R.id.tv_total);
+        layoutEmpty = view.findViewById(R.id.layout_empty);
+        btnCheckout = view.findViewById(R.id.btn_checkout);
+
+        rvCart.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        refreshCart();
+
+        btnCheckout.setOnClickListener(v -> {
+            if (Cartmanager.getInstance(requireContext()).getItems().isEmpty()) {
+                Toast.makeText(getContext(), "Your cart is empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            startActivity(new Intent(getContext(), CheckoutActivity.class));
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshCart();
+    }
+
+    private void refreshCart() {
+        List<CartItem> items = Cartmanager.getInstance(requireContext()).getItems();
+
+        if (items.isEmpty()) {
+            layoutEmpty.setVisibility(View.VISIBLE);
+            rvCart.setVisibility(View.GONE);
+        } else {
+            layoutEmpty.setVisibility(View.GONE);
+            rvCart.setVisibility(View.VISIBLE);
+        }
+
+        adapter = new CartAdapter(items, this::updateSummary);
+        rvCart.setAdapter(adapter);
+        updateSummary();
+    }
+
+    private void updateSummary() {
+        double subtotal = Cartmanager.getInstance(requireContext()).getSubtotal();
+        tvSubtotal.setText(String.format("$%,.2f", subtotal));
+        tvTotal.setText(String.format("$%,.2f", subtotal));
+
+        if (Cartmanager.getInstance(requireContext()).getItems().isEmpty()) {
+            layoutEmpty.setVisibility(View.VISIBLE);
+            rvCart.setVisibility(View.GONE);
         }
     }
 

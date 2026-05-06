@@ -1,6 +1,5 @@
 package com.example.ecommerce_task;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -14,9 +13,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.ecommerce_task.Cart.Cartmanager;
+import com.example.ecommerce_task.Product.ImageSliderAdapter;
+import com.example.ecommerce_task.Product.Product;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.gson.Gson;
 
 public class ProductDetail extends AppCompatActivity {
@@ -41,7 +41,6 @@ public class ProductDetail extends AppCompatActivity {
         TextView tvBadge    = findViewById(R.id.tv_badge);
         TextView       tvName     = findViewById(R.id.tv_name);
         TextView       tvPrice    = findViewById(R.id.tv_price);
-        TextView       tvMaterial = findViewById(R.id.tv_material);
         TextView       tvDesc     = findViewById(R.id.tv_description);
         TextView       tvQty      = findViewById(R.id.tv_quantity);
         MaterialButton btnMinus   = findViewById(R.id.btn_minus);
@@ -80,9 +79,9 @@ public class ProductDetail extends AppCompatActivity {
         });
 
         btnAddCart.setOnClickListener(v -> {
-            Toast.makeText(this, "Added " + quantity + " to cart!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, CheckoutActivity.class);
-            startActivity(intent);
+            Cartmanager.getInstance(this).addItem(product, quantity);
+            Toast.makeText(this, "Added " + quantity + " item(s) to cart!", Toast.LENGTH_SHORT).show();
+            finish();
         });
     }
 }
